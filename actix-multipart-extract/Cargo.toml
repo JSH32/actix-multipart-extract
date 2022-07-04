@@ -2,7 +2,7 @@
 name = "actix-multipart-extract"
 description = "Better multipart form support for Actix Web."
 authors = ["JSH32 <rudnik7000@gmail.com>"]
-version = "0.1.1"
+version = "0.1.2"
 repository = "https://github.com/JSH32/actix-multipart-extract.git"
 readme = "../README.md"
 edition = "2021"

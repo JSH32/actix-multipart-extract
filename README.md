@@ -10,7 +10,7 @@ This is able to parse a multipart request into a struct and validate the request
 Add `actix_multipart_extract` to your Cargo.toml:
 ```toml
 [dependencies]
-actix-multipart-extract = "0.1.0"
+actix-multipart-extract = "0.1"
 ```
 ### Example:
 ```rust
