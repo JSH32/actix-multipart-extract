@@ -26,53 +26,47 @@ pub fn multipart_form(input: TokenStream) -> TokenStream {
         let Field { attrs, .. } = field;
 
         for attr in attrs {
-            match attr.parse_meta() {
-                Ok(meta) => {
-                    if let Meta::List(MetaList { path, nested, .. }) = meta {
-                        // Check for multipart attribute.
-                        if path.get_ident().unwrap()
-                            != &Ident::new("multipart", proc_macro2::Span::call_site())
-                        {
-                            continue;
-                        }
+            if let Ok(meta) = attr.parse_meta() {
+                if let Meta::List(MetaList { path, nested, .. }) = meta {
+                    // Check for multipart attribute.
+                    if path.get_ident().unwrap()
+                        != &Ident::new("multipart", proc_macro2::Span::call_site())
+                    {
+                        continue;
+                    }
 
-                        if let Some(NestedMeta::Meta(Meta::NameValue(MetaNameValue {
-                            path: Path { segments, .. },
-                            lit,
-                            ..
-                        }))) = nested.first()
-                        {
-                            for segment in segments {
-                                if &segment.ident == &Ident::new("max_size", Span::call_site()) {
-                                    let lit_string = match lit {
-                                        Lit::Int(l) => l.to_string(),
-                                        Lit::Float(f) => f.to_string(),
-                                        _ => {
-                                            return syn::Error::new(
-                                                lit.span(),
-                                                "must be a number with size suffix",
-                                            )
-                                            .to_compile_error()
-                                        }
-                                    };
+                    if let Some(NestedMeta::Meta(Meta::NameValue(MetaNameValue {
+                        path: Path { segments, .. },
+                        lit,
+                        ..
+                    }))) = nested.first()
+                    {
+                        for segment in segments {
+                            if &segment.ident == &Ident::new("max_size", Span::call_site()) {
+                                let lit_string = match lit {
+                                    Lit::Int(l) => l.to_string(),
+                                    Lit::Float(f) => f.to_string(),
+                                    _ => {
+                                        return syn::Error::new(
+                                            lit.span(),
+                                            "must be a number with size suffix",
+                                        )
+                                        .to_compile_error()
+                                    }
+                                };
 
-                                    let max_size = match parse_size(lit_string) {
-                                        Ok(v) => v as usize,
-                                        Err(_) => {
-                                            return syn::Error::new(lit.span(), "invalid size")
-                                                .to_compile_error();
-                                        }
-                                    };
+                                let max_size = match parse_size(lit_string) {
+                                    Ok(v) => v as usize,
+                                    Err(_) => {
+                                        return syn::Error::new(lit.span(), "invalid size")
+                                            .to_compile_error();
+                                    }
+                                };
 
-                                    return quote! { Some(#max_size) };
-                                }
+                                return quote! { Some(#max_size) };
                             }
                         }
                     }
-                }
-                Err(err) => {
-                    return syn::Error::new(err.span(), "must be a number with size suffix")
-                        .to_compile_error();
                 }
             }
         }
