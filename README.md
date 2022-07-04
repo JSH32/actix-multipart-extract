@@ -13,7 +13,7 @@ Add `actix_multipart_extract` to your Cargo.toml:
 actix-multipart-extract = "0.1.0"
 ```
 ### Example:
-```rs
+```rust
 use actix_multipart_extract::{File, Multipart, MultipartForm};
 use actix_web::{post, App, HttpResponse, HttpServer, Responder};
 use serde::Deserialize;
