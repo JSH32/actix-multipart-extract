@@ -1,0 +1,21 @@
+[package]
+name = "actix-multipart-extract-derive"
+description = "Better multipart form support for Actix Web."
+authors = ["JSH32 <rudnik7000@gmail.com>"]
+version = "0.1.0"
+repository = "https://github.com/JSH32/actix-multipart-extract.git"
+readme = "../README.md"
+edition = "2021"
+license = "MIT"
+keywords = ["actix", "multipart", "form", "derive", "macro"]
+
+[lib]
+name = "actix_multipart_extract_derive"
+path = "src/lib.rs"
+proc-macro = true
+
+[dependencies]
+quote = "1"
+syn = { version = "1", features = ["extra-traits"] }
+proc-macro2 = "1"
+parse-size = "1"
