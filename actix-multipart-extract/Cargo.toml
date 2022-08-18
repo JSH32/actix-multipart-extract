@@ -2,7 +2,7 @@
 name = "actix-multipart-extract"
 description = "Better multipart form support for Actix Web."
 authors = ["JSH32 <rudnik7000@gmail.com>"]
-version = "0.1.4"
+version = "0.1.5"
 repository = "https://github.com/JSH32/actix-multipart-extract.git"
 readme = "../README.md"
 edition = "2021"
@@ -16,7 +16,7 @@ path = "src/lib.rs"
 [dependencies]
 actix-web = "4"
 actix-multipart = "0.4.0"
-actix-multipart-extract-derive = "0.1.4"
+actix-multipart-extract-derive = "0.1.5"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 serde-aux = "3"

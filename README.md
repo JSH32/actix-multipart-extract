@@ -10,7 +10,7 @@ This is able to parse a multipart request into a struct and validate the request
 Add `actix_multipart_extract` to your Cargo.toml:
 ```toml
 [dependencies]
-actix-multipart-extract = "0.1"
+actix-multipart-extract = "0.5"
 ```
 ### Example:
 ```rust
@@ -21,7 +21,7 @@ use serde::Deserialize;
 // File, String, bool, and number types are the only supported types for forms.
 // Vec and Option may also be used with one of the 4 types as the type param.
 // Some serde attributes will work with forms.
-#[derive(Deserialize, MultipartForm)]
+#[derive(Deserialize, MultipartForm, Debug)]
 pub struct ExampleForm {
     #[multipart(max_size = 5MB)]
     file_field: File,

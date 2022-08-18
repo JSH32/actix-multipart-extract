@@ -29,6 +29,7 @@ pub struct File {
 }
 
 /// Extractor to extract multipart forms from the request
+#[derive(Debug)]
 pub struct Multipart<T>(T);
 
 impl<T> Deref for Multipart<T> {
